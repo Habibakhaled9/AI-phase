@@ -1,0 +1,22 @@
+[project]
+name = "ai-phase"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "chromadb>=1.5.9",
+    "google-genai>=2.31.0",
+    "ipykernel>=7.4.0",
+    "langchain>=1.4.6",
+    "pandas>=3.0.6",
+    "pypdf>=6.21.1",
+    "python-dotenv>=1.2.4",
+]
+
+[project.scripts]
+ai-phase = "ai_phase:main"
+
+[build-system]
+requires = ["uv_build>=0.13.3,<0.14.0"]
+build-backend = "uv_build"
