@@ -14,7 +14,7 @@ if not API_KEY:
     raise ValueError("OPENROUTER_API_KEY is missing from .env")
 
 
-PDF_PATH = Path(r"C:\Users\habib\OneDrive\Desktop\STS Academyy\AI\AI-phase\ai-rag-chunking-sample.pdf")
+PDF_PATH = Path("ai-rag-chunking-sample.pdf")
 OUTPUT_PATH = Path("document_embeddings.json")
 
 MODEL = "nvidia/nemotron-3-embed-1b:free"
