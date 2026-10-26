@@ -9,9 +9,7 @@ from dotenv import load_dotenv
 from ollama import chat
 
 
-# --------------------------------------------------
 # Configuration
-# --------------------------------------------------
 
 load_dotenv()
 
@@ -27,9 +25,9 @@ TOP_K = 3
 MIN_SIMILARITY = 0.25
 
 
-# --------------------------------------------------
+
 # Validate configuration and files
-# --------------------------------------------------
+
 
 def validate_setup() -> None:
     if not OPENROUTER_API_KEY:
@@ -48,9 +46,9 @@ def validate_setup() -> None:
         )
 
 
-# --------------------------------------------------
+
 # Load the stored FAISS index and text metadata
-# --------------------------------------------------
+
 
 def load_vector_store():
     index = faiss.read_index(str(FAISS_INDEX_FILE))
@@ -68,9 +66,9 @@ def load_vector_store():
     return index, metadata
 
 
-# --------------------------------------------------
+
 # Convert the question into an embedding
-# --------------------------------------------------
+
 
 def create_query_embedding(question: str) -> np.ndarray:
     response = requests.post(
@@ -105,9 +103,9 @@ def create_query_embedding(question: str) -> np.ndarray:
     return embedding
 
 
-# --------------------------------------------------
+
 # Retrieve relevant chunks from FAISS
-# --------------------------------------------------
+
 
 def retrieve_chunks(
     question: str,
@@ -154,9 +152,8 @@ def retrieve_chunks(
     return retrieved_chunks
 
 
-# --------------------------------------------------
+
 # Format retrieved chunks as LLM context
-# --------------------------------------------------
 
 def build_context(retrieved_chunks: list[dict]) -> str:
     context_parts = []
@@ -178,9 +175,9 @@ Chunk: {record["chunk"]}
     return "\n\n---\n\n".join(context_parts)
 
 
-# --------------------------------------------------
+
 # Ask the generative LLM to produce the final answer
-# --------------------------------------------------
+
 
 def generate_answer(
     question: str,
@@ -229,9 +226,8 @@ Question:
     return response.message.content
 
 
-# --------------------------------------------------
 # Display the sources used by the retrieval system
-# --------------------------------------------------
+
 
 def display_sources(retrieved_chunks: list[dict]) -> None:
     print("\nSources retrieved:")
@@ -247,9 +243,9 @@ def display_sources(retrieved_chunks: list[dict]) -> None:
         )
 
 
-# --------------------------------------------------
+
 # Main chatbot loop
-# --------------------------------------------------
+
 
 def main() -> None:
     validate_setup()
