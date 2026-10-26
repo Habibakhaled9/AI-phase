@@ -1,0 +1,117 @@
+[
+  {
+    "page": 1,
+    "chunk": 1,
+    "text": "AI and RAG - Chunking Practice Document\nPage 1 of 12\n AI and RAG\n A 12-page practice document for PDF extraction, chunking, embeddings, retrieval, and\n evaluation\n Designed for local experiments with Python, Ollama, and vector search.\n Suggested exercise: extract this document page by page, create overlapping chunks,\n generate embeddings, store page metadata, and test whether natural-language\n questions retrieve the correct sections."
+  },
+  {
+    "page": 2,
+    "chunk": 1,
+    "text": "AI and RAG - Chunking Practice Document\nPage 2 of 12\n1. Large Language Model Foundations\nA large language model is a neural network trained to predict tokens from context. During\ntraining, the model receives enormous collections of text and learns statistical patterns involving\nwords, grammar, style, facts, and common reasoning structures. The model does not store a\nconventional database of complete sentences. Instead, information is distributed across many\nnumerical parameters that influence which token is likely to come next.\nWhen a user sends a prompt, the text is converted into tokens and passed through multiple\ntransformer blocks. Each block updates the internal representation of every token by considering\nrelationships with other tokens. The final layer produces a probability distribution over the model\nvocabulary. A decoding strategy chooses the next token, appends it to the sequence, and\nrepeats the process until the answer finishes or reaches a configured limit.\nLanguage models are strong at generating fluent text, summarizing documents, classifying\ncontent, extracting structured information, and transforming text between formats. They are not\nguaranteed truth engines. The"
+  },
+  {
+    "page": 2,
+    "chunk": 2,
+    "text": "s are strong at generating fluent text, summarizing documents, classifying\ncontent, extracting structured information, and transforming text between formats. They are not\nguaranteed truth engines. Their output depends on the supplied context, learned patterns,\ndecoding settings, and application controls. Reliable systems therefore combine models with\nretrieval, validation, monitoring, and human review.\nKey ideas include tokens, context, parameters, decoding, and uncertainty. A model can provide\na useful answer without having a human-style understanding of the subject. The application\nsurrounding the model is responsible for deciding what information may be used and what\nactions may be performed."
+  },
+  {
+    "page": 3,
+    "chunk": 1,
+    "text": "AI and RAG - Chunking Practice Document\nPage 3 of 12\n2. Tokens, Context, and Embeddings\nA tokenizer divides text into smaller units called tokens. A token may represent a complete word,\npart of a word, punctuation, or whitespace. Tokenization allows a model to work with a finite\nvocabulary while still handling unfamiliar words. Context windows, usage limits, latency, and API\ncosts are commonly measured in tokens rather than characters or words.\nThe context window contains all information available to the model for the current generation. It\nmay include a system instruction, conversation history, the current user message, retrieved\npassages, and tool results. Information outside the context window is not directly visible to the\nmodel. Applications often shorten older conversations, summarize history, or retrieve only\nrelevant documents.\nAn embedding converts text into a numerical vector. Texts with similar meanings tend to produce\nvectors located near each other in vector space. Embeddings are useful for semantic search\nbecause they can match meaning rather than exact keywords. A question about annual leave\ncan retrieve a document about vacation days even if the two texts use differ"
+  },
+  {
+    "page": 3,
+    "chunk": 2,
+    "text": "ngs are useful for semantic search\nbecause they can match meaning rather than exact keywords. A question about annual leave\ncan retrieve a document about vacation days even if the two texts use different wording.\nA retrieval system should use the same embedding model for documents and queries. Changing\nthe model without rebuilding the index can make stored vectors incompatible with new query\nvectors. Metadata such as document name, page number, section, version, and access level\nshould be stored beside every vector."
+  },
+  {
+    "page": 4,
+    "chunk": 1,
+    "text": "AI and RAG - Chunking Practice Document\nPage 4 of 12\n3. Transformer Blocks and Attention\nThe transformer is the core architecture behind most modern language models. A model\ncontains many repeated transformer blocks. Each block normally includes self-attention, a\nfeed-forward network, normalization, and residual connections. Repeating these operations\nallows the model to build increasingly useful representations of the input sequence.\nSelf-attention helps each token identify other relevant tokens. For every token, the model\ncalculates query, key, and value vectors. Queries are compared with keys to produce attention\nweights, and those weights control how values are combined. Multi-head attention performs this\nprocess in parallel, allowing different heads to focus on different relationships.\nDecoder-only language models use a causal mask. This prevents a token from attending to\nfuture tokens during generation. When predicting the next token, the model can use the prompt\nand all tokens already generated, but it cannot see tokens that have not yet been produced. This\ndesign matches the next-token prediction objective used during training.\nResidual connections add the original input ba"
+  },
+  {
+    "page": 4,
+    "chunk": 2,
+    "text": "lready generated, but it cannot see tokens that have not yet been produced. This\ndesign matches the next-token prediction objective used during training.\nResidual connections add the original input back after a transformation, which helps information\nand gradients travel through deep networks. Layer normalization stabilizes values. The\nfeed-forward network transforms each token representation independently after attention has\nmixed contextual information."
+  },
+  {
+    "page": 5,
+    "chunk": 1,
+    "text": "AI and RAG - Chunking Practice Document\nPage 5 of 12\n4. Prompt Design and Conversation Roles\nA prompt communicates the task, relevant context, constraints, and expected output. Clear\nprompts describe what the model should do, identify the audience, specify the required format,\nand explain what to do when information is unavailable. Ambiguous prompts force the model to\ninfer missing requirements and usually create less predictable results.\nChat applications commonly organize input into system, user, and assistant roles. The system\nmessage defines broad behavior and boundaries. User messages contain requests and data.\nAssistant messages preserve previous responses so the model can continue the conversation.\nThese roles are serialized into tokens before inference.\nZero-shot prompting gives instructions without examples. One-shot prompting provides one\nexample, while few-shot prompting provides several examples. Examples are useful when the\noutput format, classification labels, tone, or decision criteria are difficult to describe. They should\nbe accurate, diverse, and consistent with the instructions.\nPrompt quality can be tested systematically. Keep a fixed evaluation set, change one"
+  },
+  {
+    "page": 5,
+    "chunk": 2,
+    "text": "cision criteria are difficult to describe. They should\nbe accurate, diverse, and consistent with the instructions.\nPrompt quality can be tested systematically. Keep a fixed evaluation set, change one prompt\nelement at a time, and compare accuracy, format compliance, latency, and token usage. A\nprompt that performs well on one example may fail on unusual wording, missing information,\nadversarial text, or long documents."
+  },
+  {
+    "page": 6,
+    "chunk": 1,
+    "text": "AI and RAG - Chunking Practice Document\nPage 6 of 12\n5. Hallucination and Answer Reliability\nA hallucination is an unsupported or incorrect model statement presented as if it were reliable.\nHallucinations occur because language models optimize next-token prediction rather than factual\nverification. When evidence is missing, a model may continue a plausible linguistic pattern\ninstead of stopping. Fluent language can make an incorrect answer appear convincing.\nCommon causes include missing knowledge, outdated training data, ambiguous questions,\nconflicting context, high sampling randomness, and pressure to always provide an answer. In\nretrieval systems, poor document selection is another major cause. If the correct passage is not\nretrieved, the generation model cannot reliably use it.\nApplications can reduce hallucination by supplying trustworthy context, lowering temperature for\nfactual tasks, requesting citations, validating structured output, and allowing the model to state\nthat information is unavailable. Critical decisions require deterministic business rules or human\nreview rather than relying only on generated language.\nEvaluation should separate retrieval quality from generat"
+  },
+  {
+    "page": 6,
+    "chunk": 2,
+    "text": "mation is unavailable. Critical decisions require deterministic business rules or human\nreview rather than relying only on generated language.\nEvaluation should separate retrieval quality from generation quality. Retrieval metrics determine\nwhether the right evidence was found. Faithfulness checks determine whether the answer is\nsupported by that evidence. Answer relevance determines whether the response addresses the\nquestion."
+  },
+  {
+    "page": 7,
+    "chunk": 1,
+    "text": "AI and RAG - Chunking Practice Document\nPage 7 of 12\n6. Retrieval-Augmented Generation Overview\nRetrieval-augmented generation, usually called RAG, connects a language model to an external\nknowledge source. Instead of expecting the model to remember every fact, the application\nsearches a document collection for relevant passages and places those passages in the prompt.\nThe model then generates an answer using the retrieved evidence.\nA RAG system has two broad phases. The indexing phase loads documents, extracts text,\ncleans it, divides it into chunks, creates embeddings, and stores the resulting vectors with\nmetadata. The query phase embeds the user question, retrieves similar chunks, optionally\nreranks them, constructs a prompt, and asks the language model to answer.\nRAG can make answers more current, domain-specific, and traceable. Updating the knowledge\nbase is often easier than retraining a language model. It also allows answers to include\nreferences to source documents. However, RAG does not automatically guarantee correctness.\nPoor parsing, weak chunking, incomplete metadata, or irrelevant retrieval can still produce bad\nanswers.\nSuccessful RAG projects treat ingestion and re"
+  },
+  {
+    "page": 7,
+    "chunk": 2,
+    "text": "AG does not automatically guarantee correctness.\nPoor parsing, weak chunking, incomplete metadata, or irrelevant retrieval can still produce bad\nanswers.\nSuccessful RAG projects treat ingestion and retrieval as data engineering problems. They define\ndocument ownership, update schedules, versioning, quality checks, access controls,\nobservability, and recovery procedures. A polished chatbot interface cannot compensate for an\nunreliable knowledge pipeline."
+  },
+  {
+    "page": 8,
+    "chunk": 1,
+    "text": "AI and RAG - Chunking Practice Document\nPage 8 of 12\n7. Document Ingestion and Cleaning\nDocument ingestion begins by collecting source files and recording where they came from.\nSources may include PDFs, web pages, office documents, database rows, support tickets, or\nAPIs. Each source should receive a stable identifier and metadata describing its owner, creation\ntime, version, permissions, and processing status.\nText extraction is not always straightforward. Digital PDFs usually contain selectable text, while\nscanned PDFs contain images and require optical character recognition. Tables may lose their\nrows and columns during extraction. Headers, footers, page numbers, navigation elements, and\nrepeated legal notices can pollute the content and reduce retrieval quality.\nCleaning should preserve meaning while removing noise. Useful steps include normalizing\nwhitespace, repairing broken line endings, removing repeated headers, identifying headings,\nretaining page references, and detecting empty or corrupted pages. Every transformation should\nbe reproducible so the index can be rebuilt when processing rules change.\nData quality checks can measure extraction success, text length, language,"
+  },
+  {
+    "page": 8,
+    "chunk": 2,
+    "text": "pty or corrupted pages. Every transformation should\nbe reproducible so the index can be rebuilt when processing rules change.\nData quality checks can measure extraction success, text length, language, duplicate content,\nmissing pages, and unusual character ratios. Failed documents should be quarantined for review\nrather than silently entering the vector index. Logging each stage makes it possible to diagnose\nwhy a later answer used incomplete evidence."
+  },
+  {
+    "page": 9,
+    "chunk": 1,
+    "text": "AI and RAG - Chunking Practice Document\nPage 9 of 12\n8. Chunking Strategies\nChunking divides long documents into smaller pieces that can be embedded and retrieved.\nChunk size creates a tradeoff. Very small chunks may lose context and produce vague matches.\nVery large chunks may contain several unrelated topics, waste context-window space, and\nreduce retrieval precision.\nFixed-size chunking splits text after a chosen number of characters or tokens. It is simple and\nfast but may cut sentences or sections at awkward points. Overlap repeats part of one chunk in\nthe next chunk, reducing the chance that important information is separated at a boundary.\nExcessive overlap increases storage and creates nearly duplicate search results.\nStructure-aware chunking respects headings, paragraphs, lists, or document sections. Semantic\nchunking attempts to detect topic changes using embeddings or language models. These\nmethods can preserve meaning better but require more processing and careful testing. The best\nstrategy depends on document structure and user questions.\nEach chunk should store metadata such as document identifier, page number, section title,\nchunk sequence, source version, and permis"
+  },
+  {
+    "page": 9,
+    "chunk": 2,
+    "text": "The best\nstrategy depends on document structure and user questions.\nEach chunk should store metadata such as document identifier, page number, section title,\nchunk sequence, source version, and permissions. Chunking should be evaluated with real\nquestions. If answers require information from several distant sections, the system may need\nparent-child retrieval, neighboring chunks, or query decomposition."
+  },
+  {
+    "page": 10,
+    "chunk": 1,
+    "text": "AI and RAG - Chunking Practice Document\nPage 10 of 12\n9. Vector Search and Similarity\nAfter chunking, an embedding model converts each chunk into a vector. These vectors are\nstored in a vector index or vector database. At query time, the same embedding model converts\nthe question into a vector. The system then searches for document vectors that are close to the\nquery vector.\nCosine similarity compares the direction of two vectors and is widely used for semantic search.\nOther indexes may use dot product or Euclidean distance. The database can use approximate\nnearest-neighbor algorithms to search millions of vectors quickly. Approximation improves speed\nwhile accepting a small possibility of missing the exact nearest result.\nSemantic similarity alone may not be sufficient. Metadata filters can restrict results to a\ndepartment, customer, date range, language, or permission level. Hybrid retrieval combines\nembeddings with keyword search, helping with exact product names, codes, identifiers, and rare\nterminology. Reranking uses another model to reorder candidate passages.\nRetrieval parameters include the number of candidates, similarity threshold, filters, and reranking\ndepth. Increasin"
+  },
+  {
+    "page": 10,
+    "chunk": 2,
+    "text": ", and rare\nterminology. Reranking uses another model to reorder candidate passages.\nRetrieval parameters include the number of candidates, similarity threshold, filters, and reranking\ndepth. Increasing the number of chunks can improve recall but may add irrelevant context. These\nsettings should be tuned using representative questions and known relevant passages rather\nthan chosen only by intuition."
+  },
+  {
+    "page": 11,
+    "chunk": 1,
+    "text": "AI and RAG - Chunking Practice Document\nPage 11 of 12\n10. Building the Generation Prompt\nAfter retrieval, the application combines instructions, retrieved passages, conversation history,\nand the current question. The prompt should clearly separate trusted application instructions\nfrom untrusted document text. Retrieved content may contain irrelevant statements or malicious\ninstructions, so the model should treat it as evidence rather than authority.\nA grounded prompt tells the model to answer from the supplied context, identify uncertainty, and\navoid unsupported claims. It may require citations containing document names and page\nnumbers. The application should generate citations from stored metadata instead of trusting the\nmodel to invent source details.\nContext ordering can influence results. Highly relevant passages are often placed near the\nquestion or presented with clear labels. Duplicate chunks should be removed to preserve space.\nIf retrieved evidence conflicts, the prompt can ask the model to describe the conflict instead of\nselecting a version without explanation.\nConversation history must be managed carefully. A follow-up question may depend on earlier\nturns, but unlimite"
+  },
+  {
+    "page": 11,
+    "chunk": 2,
+    "text": "sk the model to describe the conflict instead of\nselecting a version without explanation.\nConversation history must be managed carefully. A follow-up question may depend on earlier\nturns, but unlimited history increases tokens and can distract retrieval. Applications commonly\nrewrite the latest question into a standalone search query, summarize older dialogue, or retain\nonly turns relevant to the current topic."
+  },
+  {
+    "page": 12,
+    "chunk": 1,
+    "text": "AI and RAG - Chunking Practice Document\nPage 12 of 12\n11. Evaluation, Security, and Operations\nRAG evaluation should include a dataset of realistic questions, expected evidence, and\nacceptable answers. Retrieval can be measured with recall at k, precision, and ranking metrics.\nGenerated answers can be evaluated for relevance, faithfulness, completeness, citation\naccuracy, tone, and format compliance. Human review remains important.\nLatency is another key measurement. Time to first token captures perceived responsiveness,\nwhile end-to-end latency measures the complete request. Retrieval time, reranking time, model\ngeneration time, and queue time should be recorded separately. Percentiles such as p50, p95,\nand p99 reveal slow experiences that averages can hide.\nPrompt injection occurs when user content or retrieved documents attempt to override\napplication instructions. Defenses include treating external text as untrusted, limiting tool\npermissions, validating tool arguments, requiring confirmation for consequential actions, filtering\ninaccessible documents, and keeping secrets outside prompts.\nOperational systems need logging, monitoring, version control, and feedback loops. Teams\ns"
+  },
+  {
+    "page": 12,
+    "chunk": 2,
+    "text": "onfirmation for consequential actions, filtering\ninaccessible documents, and keeping secrets outside prompts.\nOperational systems need logging, monitoring, version control, and feedback loops. Teams\nshould track which model, embedding model, prompt, index version, and documents produced\neach answer. This lineage makes failures reproducible. A mature RAG system is a governed\ndata pipeline connected to a probabilistic generation component."
+  }
+]
