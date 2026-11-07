@@ -1,0 +1,32 @@
+[project]
+name = "graph-rag"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "omartt4", email = "o.yousseff78@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "bcrypt>=5.0.0",
+    "chromadb>=1.5.9",
+    "httpx>=0.28.1",
+    "neo4j>=6.4.1",
+    "ollama>=0.6.3",
+    "pandas>=3.1.0",
+    "py7zr>=1.1.4",
+    "pyjwt>=2.15.1",
+    "pymupdf>=2.0",
+    "python-docx>=1.2.0",
+    "python-dotenv>=1.2.4",
+    "python-pptx>=1.0.2",
+    "rarfile>=4.5",
+    "streamlit>=1.66.1",
+]
+
+[project.scripts]
+graph-rag = "graph_rag:main"
+
+[build-system]
+requires = ["uv_build>=0.13.3,<0.14.0"]
+build-backend = "uv_build"
